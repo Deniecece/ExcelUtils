@@ -1,0 +1,82 @@
+server:
+  port: 80
+  session-timeout: 60
+
+spring:
+   datasource:
+     driver-class-name: com.mysql.jdbc.Driver
+     type: com.zaxxer.hikari.HikariDataSource
+     jdbc-url: jdbc:mysql://127.0.0.1:3306/test_write?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+     username: root
+     password: nideshengri
+#mybatis:
+#     mapperLocations: classpath:/com/other/dao/*.xml
+#     typeAliasesPackage: com.other.dao
+#     mapperScanPackage: com.other.dao
+#     configLocation: classpath:/mybatis-config.xml
+#
+#spring:
+#    datasource:
+#        readSize: 2  #读库个数
+#        type: com.alibaba.druid.pool.DruidDataSource
+#        mapperLocations: classpath:/com/other/dao/*.xml
+#        configLocation: classpath:/mybatis-config.xml
+#    druid:
+#        write:
+#           driver-class-name: com.mysql.jdbc.Driver
+#           jdbc-url: jdbc:mysql://127.0.0.1:3306/test_write?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+#           username: root
+#           password: nideshengri
+#           minIdle: 5
+#           maxActive: 100
+#           initialSize: 10
+#           maxWait: 60000
+#           timeBetweenEvictionRunsMillis: 60000
+#           minEvictableIdleTimeMillis: 300000
+#           validationQuery: select 'x'
+#           testWhileIdle: true
+#           testOnBorrow: false
+#           testOnReturn: false
+#           poolPreparedStatements: true
+#           maxPoolPreparedStatementPerConnectionSize: 50
+#           removeAbandoned: true
+#           filters: stat
+#        read01:
+#           driver-class-name: com.mysql.jdbc.Driver
+#           jdbc-url: jdbc:mysql://127.0.0.1:3306/test_read01?useUnicode=true&characterEncoding=utf-8&useSSL=false
+#           username: root
+#           password: nideshengri
+#           minIdle: 5
+#           maxActive: 100
+#           initialSize: 10
+#           maxWait: 60000
+#           timeBetweenEvictionRunsMillis: 60000
+#           minEvictableIdleTimeMillis: 300000
+#           validationQuery: select 'x'
+#           testWhileIdle: true
+#           testOnBorrow: false
+#           testOnReturn: false
+#           poolPreparedStatements: true
+#           maxPoolPreparedStatementPerConnectionSize: 50
+#           removeAbandoned: true
+#           filters: stat
+#        read02:
+#           driver-class-name: com.mysql.jdbc.Driver
+#           jdbc-url: jdbc:mysql://127.0.0.1:3306/test_read02?useUnicode=true&characterEncoding=utf-8&useSSL=false
+#           username: root
+#           password: nideshengri
+#           minIdle: 5
+#           maxActive: 100
+#           initialSize: 10
+#           maxWait: 60000
+#           timeBetweenEvictionRunsMillis: 60000
+#           minEvictableIdleTimeMillis: 300000
+#           validationQuery: select 'x'
+#           testWhileIdle: true
+#           testOnBorrow: false
+#           testOnReturn: false
+#           poolPreparedStatements: true
+#           maxPoolPreparedStatementPerConnectionSize: 50
+#           removeAbandoned: true
+
+#           filters: stat
