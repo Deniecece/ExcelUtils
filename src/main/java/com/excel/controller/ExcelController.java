@@ -26,14 +26,11 @@ public class ExcelController {
     ExcelService excelService;
 
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
-    public void exportExcel()  throws IOException {
-        HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
-
-
+    public void exportExcel() {
         List<BusClick> resultList = excelService.getBusClick();
 
         long t1 = System.currentTimeMillis();
-        ExcelUtils.writeExcel(response, resultList, BusClick.class);
+        ExcelUtils.writeExcelByAnnotation(resultList, BusClick.class, ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse());
         long t2 = System.currentTimeMillis();
         System.out.println(String.format("write over! cost:%sms", (t2 - t1)));
     }
@@ -42,7 +39,7 @@ public class ExcelController {
     public void readExcel(MultipartFile file){
 
         long t1 = System.currentTimeMillis();
-        List<BusClick> list = ExcelUtils.readExcel("", BusClick.class, file);
+        List<BusClick> list = ExcelUtils.readExcelObject(BusClick.class, file);
         long t2 = System.currentTimeMillis();
         System.out.println(String.format("read over! cost:%sms", (t2 - t1)));
         list.forEach(
