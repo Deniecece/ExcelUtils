@@ -6,6 +6,7 @@ import com.excel.service.ExcelService;
 import com.excel.util.ExcelUtils;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/excel")
@@ -35,11 +37,23 @@ public class ExcelController {
         System.out.println(String.format("write over! cost:%sms", (t2 - t1)));
     }
 
-    @RequestMapping(value = "/readExcel", method = RequestMethod.POST)
+    @PostMapping(value = "/readExcel")
     public void readExcel(MultipartFile file){
 
         long t1 = System.currentTimeMillis();
         List<BusClick> list = ExcelUtils.readExcelObject(BusClick.class, file);
+        long t2 = System.currentTimeMillis();
+        System.out.println(String.format("read over! cost:%sms", (t2 - t1)));
+        list.forEach(
+                b -> System.out.println(JSON.toJSONString(b))
+        );
+    }
+
+    @PostMapping(value = "/readMap")
+    public void readMap(MultipartFile file) throws IOException {
+
+        long t1 = System.currentTimeMillis();
+        List<Map<String, String>> list = ExcelUtils.readExcelMap(file.getInputStream(), file.getOriginalFilename(), 0);
         long t2 = System.currentTimeMillis();
         System.out.println(String.format("read over! cost:%sms", (t2 - t1)));
         list.forEach(

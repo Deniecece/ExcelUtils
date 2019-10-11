@@ -66,21 +66,22 @@ public class ExcelUtils {
             if (workbook != null) {
 
                 //映射  注解的value(excel的列名)-对应->实体类的属性
+                //可用于多个属性对应同一列 如不需要可不使用classMap循环field装载
                 Map<String, List<Field>> classMap = new HashMap<>();
-                List<Field> fields = Stream.of(cls.getDeclaredFields()).collect(Collectors.toList());
-                fields.forEach(
+                Stream.of(cls.getDeclaredFields())
+                        .collect(Collectors.toList())
+                        .forEach(
                         field -> {
                             ExcelColumn annotation = field.getAnnotation(ExcelColumn.class);
                             if (annotation != null) {
-                                String value = annotation.value();
-                                if (StringUtils.isBlank(value)) {
+                                if (StringUtils.isBlank(annotation.value())) {
                                     return;
                                 }
-                                if (!classMap.containsKey(value)) {
-                                    classMap.put(value, new ArrayList<>());
+                                if (!classMap.containsKey(annotation.value())) {
+                                    classMap.put(annotation.value(), new ArrayList<>());
                                 }
                                 field.setAccessible(true);
-                                classMap.get(value).add(field);
+                                classMap.get(annotation.value()).add(field);
                             }
                         }
                 );
@@ -435,7 +436,7 @@ public class ExcelUtils {
      */
     private static Workbook getWorkbook(InputStream inStr, String fileName) {
         Workbook wb = null;
-        String fileType = fileName.substring(fileName.lastIndexOf("."));
+        String fileType = fileName.substring(fileName.lastIndexOf(".") + 1);
         try {
             if (EXCEL2003.equals(fileType)) {
                 wb = new HSSFWorkbook(inStr);
